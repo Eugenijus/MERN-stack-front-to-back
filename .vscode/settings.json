@@ -4,5 +4,6 @@
   },
   "emmet.syntaxProfiles": {
     "javascript": "jsx"
-  }
+  },
+  "editor.autoClosingBrackets": "always",
 }
