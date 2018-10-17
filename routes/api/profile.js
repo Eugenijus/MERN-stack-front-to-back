@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+// Load Validation
+const validateProfileInput = require('../../validation/profile');
+
 // Load Profile Model
 const Profile = require('../../models/Profile');
 // Load User Profile
@@ -20,6 +23,7 @@ router.get('/', passport.authenticate('jwt', { session : false }), (req, res) =>
   const errors = {};
 
   Profile.findOne({ user: req.user.id })
+    .populate('user', ['name', 'avatar'])
     .then(profile => {
       if(!profile) {
         errors.noprofiles = 'There is no profile for this user';
@@ -37,7 +41,13 @@ router.post(
   '/',
   passport.authenticate('jwt', { session : false }),
   (req, res) => {
-    const errors = {};
+    const { errors, isValid } = validateProfileInput(req.body);
+
+    // Check Validation
+    if(!isValid){
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
 
     // Get fields
     const profileFields = {};
@@ -56,7 +66,7 @@ router.post(
     }
 
     // Social
-    profileFileds.social = {};
+    profileFields.social = {};
     if(req.body.youtube) profileFields.social.youtube = req.body.youtube;
     if(req.body.twitter) profileFields.social.twitter = req.body.twitter;
     if(req.body.facebook) profileFields.social.facebook = req.body.facebook;
@@ -86,9 +96,20 @@ router.post(
           }
 
           // Save profile
-          new Profile({ profileFields }).save().then(profile => res.json(profile));
+          new Profile(profileFields).save()
+            .then(profile => res.json(profile))
+            .catch(err => {
+              console.log('Failed to save profile!');
+              res.status(404).json(err);
+            });
+        }).catch(err => {
+          console.log('Failed to find profile!');
+          res.status(404).json(err);
         });
       }
+    }).catch(err => {
+      console.log('Failed to find user!');
+      res.status(404).json(err);
     });
   }
 );
