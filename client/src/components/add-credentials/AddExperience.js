@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExperience } from '../../actions/profileActions';
 
-
 class AddExperience extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +19,11 @@ class AddExperience extends Component {
       description: '',
       errors: {},
       disabled: false
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
-    this.onCheck = this.onCheck.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onCheck = this.onCheck.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,24 +38,24 @@ class AddExperience extends Component {
     const expData = {
       company: this.state.company,
       title: this.state.title,
-      location: this.statue,
+      location: this.state.location,
       from: this.state.from,
       to: this.state.to,
       current: this.state.current,
-      description: this.state.description,
+      description: this.state.description
     };
 
-    this.props.addExperience(expData);
+    this.props.addExperience(expData, this.props.history);
   }
 
-  onChange(e){
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onCheck(e) {
     this.setState({
       disabled: !this.state.disabled,
-      current: !this.state.current,
+      current: !this.state.current
     });
   }
 
@@ -72,11 +71,13 @@ class AddExperience extends Component {
                 Go Back
               </Link>
               <h1 className="display-4 text-center">Add Experience</h1>
-              <p className="lead text-center">Add any job or position that you have had in the past or current</p>
+              <p className="lead text-center">
+                Add any job or position that you have had in the past or current
+              </p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
-                  placeholder="Company"
+                  placeholder="* Company"
                   name="company"
                   value={this.state.company}
                   onChange={this.onChange}
@@ -145,19 +146,21 @@ class AddExperience extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-}
+  errors: PropTypes.object.isRequired
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   profile: state.profile,
-  errors: state.errors,
+  errors: state.errors
 });
 
-export default connect(mapStateToProps, { addExperience })(withRouter(AddExperience)) ;
+export default connect(mapStateToProps, { addExperience })(
+  withRouter(AddExperience)
+);
