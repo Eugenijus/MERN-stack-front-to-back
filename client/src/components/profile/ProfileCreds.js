@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
-import isEmpty from '../../validation/is-empty';
 
 class ProfileCreds extends Component {
   render() {
@@ -64,8 +63,8 @@ class ProfileCreds extends Component {
 }
 
 ProfileCreds.propTypes = {
-  education: PropTypes.object.isRequired,
-  experience: PropTypes.object.isRequired,
+  education: PropTypes.array.isRequired,
+  experience: PropTypes.array.isRequired,
 }
 
 export default ProfileCreds;
