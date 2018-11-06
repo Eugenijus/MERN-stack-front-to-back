@@ -25,6 +25,8 @@ class PostForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    // TODO: for some reason after creating a post,
+    // the page doesnt reload
     const { user } = this.props.auth;
 
     const newPost = {
