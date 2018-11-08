@@ -1,6 +1,9 @@
 # npm
 package-lock.json
 
+# config
+/config/keys_dev.js
+
 # Logs
 logs
 *.log

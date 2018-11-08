@@ -1,4 +1,5 @@
-module.exports = {
-  mongoURI: 'mongodb://dev-default:default1@ds133533.mlab.com:33533/eugis-dev',
-  secretOrKey: 'secret'
+if(process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+} else {
+  module.exports = require('./keys_dev');
 }
