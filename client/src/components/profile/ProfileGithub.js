@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { GITHUB_API } from '../../../config/keys';
+
 class ProfileGithub extends Component {
   constructor(props){
     super(props);
     this.state = {
-      clientId: '64d92f0e5e877424d429',
-      clientSecret: 'cb9110808b7feb87f6c9ddb9370eb7d5ffc149a9',
+      clientId: GITHUB_API.clientId,
+      clientSecret: GITHUB_API.clientSecret,
       count: 5,
       sort: 'created: asc',
       repos: []
