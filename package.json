@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/Eugenijus/MERN-stack-front-to-back#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
     "concurrently": "^9.1.2",
-    "express": "^4.16.4",
+    "express": "^5.1.0",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.6",
